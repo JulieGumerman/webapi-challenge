@@ -6,20 +6,33 @@ const projects = require("./projectModel");
 router.get("/", (req, res) => {
     projects.get()
         .then(data => res.json(data))
-        .catch(res => res.json({message: "oops"}))
+        .catch(res => res.status(500).json({message: "oops"}))
 } )
 
 router.get("/:id", (req, res) => {
     const { id } = req.params;
     projects.get(id)
-        .then(data => res.json(data))
-        .catch(error => res.json({ message: "oh nos!!!"}))
+        .then(data => {
+            if(!data.id) {
+                res.status(404).json({error: "The project with this id does not exist"})
+            }
+            else {
+                res.json(data);
+            }
+        })
+        .catch(error => res.status(500).json({ message: "oh nos!!!"}))
 })
 
 router.post("/", (req, res) => {
     const newProject = req.body;
     projects.insert(newProject)
-        .then(data => res.json(newProject))
+        .then(data => {
+            if (!newProject.name || !newProject.description || !newProject.completed) {
+                res.status(404).json({ error: "Please fill out the required fields"})
+            } else {
+               res.json(newProject)}   
+            }) 
+           
         .catch(err => res.json({ message: "Oh dear...it didn't work"}))
 })
 
