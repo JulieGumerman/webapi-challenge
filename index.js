@@ -9,6 +9,7 @@ just to hang on.
 
 const express = require("express");
 const cors = require("cors");
+require("dotenv").config();
 const server = express();
 const router = require("./data/helpers/router.js");
 server.use(express.json());
@@ -19,7 +20,10 @@ server.get("/", (req, res) => {
     res.send("<h2>Julie was here</h2>")
 })
 
-server.listen(4321, () => {
+// const port = process.env.PORT || 1111;
+const port = 4321;
+
+server.listen(port, () => {
     console.log("Woohoo!!!")
 })
 
