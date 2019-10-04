@@ -1,14 +1,30 @@
 /*
-play this: https://www.youtube.com/watch?v=d-diB65scQU
+The science is just to keep spinning
+because the big bang is only just beginning
+and sometimes it's all that we can do
+just to hang on.
 
-Sing along:
-
-here's a little code I wrote, you might want to read it really slow, don't worry be happy
-in every line there may be trouble, but if you worry you make it double, don't worry, be happy
-ain't got no sense of what is REST? just concentrate on learning Express, don't worry, be happy
-your file is getting way too big, bring a Router and make it thin, don't worry, be crafty
-there is no data on that route, just write some code, you'll sort it out… don't worry, just API…
-I need this code, just don't know where, perhaps should make some middleware, don't worry, be happy
-
-Go code!
+--Ani di Franco--
 */
+
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
+const server = express();
+const router = require("./data/helpers/router.js");
+server.use(express.json());
+server.use(cors());
+server.use("/api/projects", router);
+
+server.get("/", (req, res) => {
+    res.send("<h2>Julie was here</h2>")
+})
+
+// const port = process.env.PORT || 1111;
+const port = 4321;
+
+server.listen(port, () => {
+    console.log("Woohoo!!!")
+})
+
+
